@@ -1,6 +1,9 @@
 import { FormEvent, useState } from 'react'
 import { api } from '../../lib/axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { Header } from '../../components/Header'
+import { LoginContainer, Main } from './styles'
+import { Button } from '../../components/Button'
 
 export function Login() {
   const [email, setEmail] = useState('')
@@ -23,25 +26,34 @@ export function Login() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+    <LoginContainer>
+      <Header />
 
-        <button type="submit">Logar</button>
-      </form>
+      <Main>
+        <h1>Entre e gerencie sua vaquejada</h1>
 
-      <link rel="stylesheet" href={'/register'} />
-    </div>
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <Button typeButton="submit">Agora só imburar na conta</Button>
+        </form>
+
+        <span>
+          Ainda não tem uma conta?
+          <Link to={'/register'}> Faça seu cadastro</Link>
+        </span>
+      </Main>
+    </LoginContainer>
   )
 }

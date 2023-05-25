@@ -2,6 +2,10 @@ import { api } from '../../lib/axios'
 import * as z from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Main, RegisterContainer } from './styles'
+import { Header } from '../../components/Header'
+import { Button } from '../../components/Button'
+import { Link } from 'react-router-dom'
 
 const newManageValidadeSchema = z.object({
   name: z.string(),
@@ -44,27 +48,40 @@ export function RegisterManager() {
   }
 
   return (
-    <div>
-      <h1>Register</h1>
+    <RegisterContainer>
+      <Header />
 
-      <form onSubmit={handleSubmit(handleCreateManager)}>
-        <input type="text" id="name" placeholder="name" {...register('name')} />
-        <input
-          type="string"
-          id="phone"
-          placeholder="phone"
-          {...register('phone')}
-        />
+      <Main>
+        <h1>Cadastre-se grátis e crie sua vaquejada</h1>
 
-        <input type="email" placeholder="e-mail" {...register('email')} />
-        <input
-          type="password"
-          placeholder="password"
-          {...register('password')}
-        />
-        <input type="text" placeholder="CPF" {...register('cpf')} />
-        <button type="submit">Cadastar-se</button>
-      </form>
-    </div>
+        <form onSubmit={handleSubmit(handleCreateManager)}>
+          <input
+            type="text"
+            id="name"
+            placeholder="Name"
+            {...register('name')}
+          />
+          <input
+            type="string"
+            id="phone"
+            placeholder="Phone"
+            {...register('phone')}
+          />
+
+          <input type="email" placeholder="E-mail" {...register('email')} />
+          <input
+            type="password"
+            placeholder="Password"
+            {...register('password')}
+          />
+          <input type="text" placeholder="CPF" {...register('cpf')} />
+          <Button typeButton="submit">Cadastrar</Button>
+        </form>
+
+        <span>
+          Já tem uma conta? <Link to={'/login'}>Faça login</Link>
+        </span>
+      </Main>
+    </RegisterContainer>
   )
 }

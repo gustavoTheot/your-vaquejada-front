@@ -4,5 +4,5 @@ export const defaultTheme = {
   'gray-title': '#272221',
   'orange-dark': '#D47F56',
   'border-input': '#E6E5E5',
-  'placehoder-input': '#574F4D',
+  'placeholder-input': '#574F4D',
 }

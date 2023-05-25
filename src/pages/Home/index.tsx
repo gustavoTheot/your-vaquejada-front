@@ -1,32 +1,12 @@
-import {
-  ButtonsUserPage,
-  Header,
-  HomeContainer,
-  ListHome,
-  MainHome,
-} from './styles'
+import { Header } from '../../components/Header'
+import { ButtonsUserPage, HomeContainer, MainHome } from './styles'
 
-import logo from '../../assets/logo.svg'
+import { Link } from 'react-router-dom'
 
 export function Home() {
   return (
     <HomeContainer>
-      <Header>
-        <div>
-          <img src={logo} alt="" />
-        </div>
-
-        <ListHome>
-          <ul>
-            <li>Inicio</li>
-            <li>Sobre</li>
-            <li>Contato</li>
-            <li>Entrar</li>
-            <li>Cadaste-se</li>
-          </ul>
-        </ListHome>
-      </Header>
-
+      <Header />
       <MainHome>
         <div>
           <h1>
@@ -37,11 +17,11 @@ export function Home() {
 
         <ButtonsUserPage>
           <button>
-            <a href="#">Crie sua conta</a>
+            <Link to={'/register'}>Crie sua conta</Link>
           </button>
 
           <button>
-            <a href="#">Entre em sua conta</a>
+            <Link to={'/login'}>Entre em sua conta</Link>
           </button>
         </ButtonsUserPage>
       </MainHome>

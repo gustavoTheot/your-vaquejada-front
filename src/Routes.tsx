@@ -7,9 +7,9 @@ export function Router() {
   return (
     <Routes>
       <Route path="/">
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterManager />} />
-        <Route path="/home" element={<Home />} />
       </Route>
     </Routes>
   )

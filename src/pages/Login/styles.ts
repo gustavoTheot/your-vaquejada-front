@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const RegisterContainer = styled.div``
+export const LoginContainer = styled.div``
 
 export const Main = styled.main`
   display: flex;
