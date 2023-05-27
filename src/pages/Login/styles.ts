@@ -19,4 +19,17 @@ export const Main = styled.main`
       text-decoration: none;
     }
   }
+
+  @media (max-width: 700px) {
+    h1 {
+      margin: 0 1rem 0 1rem;
+      text-align: center;
+    }
+
+    form {
+      input {
+        width: 20rem;
+      }
+    }
+  }
 `

@@ -9,10 +9,13 @@ export const MainHome = styled.main`
   align-items: center;
 
   h1 {
-    width: 40rem;
     text-align: center;
     margin-top: 10rem;
     margin-bottom: 3.75rem;
+  }
+
+  @media (max-width: 700px) {
+    margin: 0 3rem 0 3rem;
   }
 `
 
@@ -38,5 +41,10 @@ export const ButtonsUserPage = styled.div`
       text-decoration: none;
       color: ${(props) => props.theme.withe};
     }
+  }
+
+  @media (max-width: 700px) {
+    display: flex;
+    flex-direction: column;
   }
 `

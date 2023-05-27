@@ -29,25 +29,25 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
 
-    margin-top: 3.5rem;
+      margin-top: 3.5rem;
 
-    input {
-      width: 25rem;
-      height: 3rem;
-      padding-left: 20px;
-      outline: none;
+      input {
+        width: 25rem;
+        height: 3rem;
+        padding-left: 20px;
+        outline: none;
 
-      border: 1px solid ${(props) => props.theme['border-input']};
-      border-radius: 8px;
+        border: 1px solid ${(props) => props.theme['border-input']};
+        border-radius: 8px;
 
-      &::placeholder {
-        color: ${(props) => props.theme['placeholder-input']};
-      }
+        &::placeholder {
+          color: ${(props) => props.theme['placeholder-input']};
+        }
     }
 
     button {

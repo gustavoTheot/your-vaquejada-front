@@ -1,11 +1,12 @@
 import { api } from '../../lib/axios'
 import * as z from 'zod'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Main, RegisterContainer } from './styles'
-import { Header } from '../../components/Header'
+import { Main, RegisterContainer, ViewInput } from './styles'
 import { Button } from '../../components/Button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Eye, EyeSlash } from 'phosphor-react'
 
 const newManageValidadeSchema = z.object({
   name: z.string(),
@@ -18,14 +19,22 @@ const newManageValidadeSchema = z.object({
 type NewManagerFormInputs = z.infer<typeof newManageValidadeSchema>
 
 export function RegisterManager() {
-  const { register, handleSubmit, reset } = useForm<NewManagerFormInputs>({
-    resolver: zodResolver(newManageValidadeSchema),
-    defaultValues: {
-      name: undefined,
-      cpf: '',
-      email: '',
-      password: '',
-    },
+  const { register, handleSubmit, reset, control } =
+    useForm<NewManagerFormInputs>({
+      resolver: zodResolver(newManageValidadeSchema),
+      defaultValues: {
+        name: '',
+        cpf: '',
+        email: '',
+        password: '',
+      },
+    })
+  const history = useNavigate()
+  const [showPassword, setShowPassword] = useState(false)
+  const passwordValue = useWatch({
+    control,
+    name: 'password',
+    defaultValue: '',
   })
 
   async function handleCreateManager(data: NewManagerFormInputs) {
@@ -39,18 +48,22 @@ export function RegisterManager() {
         password,
         email,
       })
-      alert('ok')
+
+      history('/login')
     } catch (error) {
-      // tratar erros de forma correta
+      alert(error)
     }
 
+    console.log(data)
     reset()
+  }
+
+  function toggleShowPassword() {
+    setShowPassword(!showPassword)
   }
 
   return (
     <RegisterContainer>
-      <Header />
-
       <Main>
         <h1>Cadastre-se grátis e crie sua vaquejada</h1>
 
@@ -58,22 +71,30 @@ export function RegisterManager() {
           <input
             type="text"
             id="name"
-            placeholder="Name"
+            placeholder="Nome"
             {...register('name')}
           />
           <input
             type="string"
             id="phone"
-            placeholder="Phone"
+            placeholder="Telefone/Celular"
             {...register('phone')}
           />
 
           <input type="email" placeholder="E-mail" {...register('email')} />
-          <input
-            type="password"
-            placeholder="Password"
-            {...register('password')}
-          />
+
+          <ViewInput>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Senha"
+              value={passwordValue}
+              {...register('password')}
+            />
+            <button type="button" onClick={toggleShowPassword}>
+              {showPassword ? <Eye size={24} /> : <EyeSlash size={24} />}
+            </button>
+          </ViewInput>
+
           <input type="text" placeholder="CPF" {...register('cpf')} />
           <Button typeButton="submit">Cadastrar</Button>
         </form>

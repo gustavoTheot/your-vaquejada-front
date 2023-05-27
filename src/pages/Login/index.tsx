@@ -1,25 +1,50 @@
-import { FormEvent, useState } from 'react'
+import { useState } from 'react'
 import { api } from '../../lib/axios'
 import { Link, useNavigate } from 'react-router-dom'
-import { Header } from '../../components/Header'
 import { LoginContainer, Main } from './styles'
 import { Button } from '../../components/Button'
+import * as z from 'zod'
+import { useForm, useWatch } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ViewInput } from '../Register/styles'
+import { Eye, EyeSlash } from 'phosphor-react'
+
+const loginManageValidadeSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+})
+
+type LoginManagerFormInputs = z.infer<typeof loginManageValidadeSchema>
 
 export function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
+  const { register, handleSubmit, control } = useForm<LoginManagerFormInputs>({
+    resolver: zodResolver(loginManageValidadeSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
   const history = useNavigate()
+  const [showPassword, setShowPassword] = useState(false)
+  const passwordValue = useWatch({
+    control,
+    name: 'password',
+    defaultValue: '',
+  })
 
-  async function handleLogin(event: FormEvent) {
-    event.preventDefault()
+  function toggleShowPassword() {
+    setShowPassword(!showPassword)
+  }
+
+  async function handleLogin(data: LoginManagerFormInputs) {
+    const { email, password } = data
 
     try {
       await api.post('/login', {
         email,
         password,
       })
-      history('/home')
+      history('/user/profile')
     } catch (error) {
       alert(error)
     }
@@ -27,24 +52,22 @@ export function Login() {
 
   return (
     <LoginContainer>
-      <Header />
-
       <Main>
         <h1>Entre e gerencie sua vaquejada</h1>
 
-        <form onSubmit={handleLogin}>
-          <input
-            type="email"
-            placeholder="E-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <form onSubmit={handleSubmit(handleLogin)}>
+          <input type="email" placeholder="E-mail" {...register('email')} />
+          <ViewInput>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Senha"
+              value={passwordValue}
+              {...register('password')}
+            />
+            <button type="button" onClick={toggleShowPassword}>
+              {showPassword ? <Eye size={24} /> : <EyeSlash size={24} />}
+            </button>
+          </ViewInput>
 
           <Button typeButton="submit">Agora só imburar na conta</Button>
         </form>

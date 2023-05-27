@@ -3,7 +3,7 @@ import { ButtonContainer } from './styles'
 
 interface ButtonProps {
   children: ReactNode
-  typeButton: 'button' | 'submit' | 'reset' | undefined
+  typeButton: 'button' | 'submit' | 'reset'
   backgroundColor?: string
 }
 

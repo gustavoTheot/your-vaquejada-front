@@ -1,4 +1,3 @@
-import { Header } from '../../components/Header'
 import { ButtonsUserPage, HomeContainer, MainHome } from './styles'
 
 import { Link } from 'react-router-dom'
@@ -6,12 +5,11 @@ import { Link } from 'react-router-dom'
 export function Home() {
   return (
     <HomeContainer>
-      <Header />
       <MainHome>
         <div>
           <h1>
-            Gerencia sua vaquejada. <br /> Crie senhas, anote o placar e acesse
-            seu histórico.
+            Gerencia sua vaquejada. Crie senhas, anote o placar e acesse seu
+            histórico.
           </h1>
         </div>
 
