@@ -3,8 +3,9 @@ import { RegisterManager } from './pages/Register'
 import { Login } from './pages/Login'
 import { Home } from './pages/Home'
 import { DefaultLayout } from './layout/DefaultLayout'
-import { Profile } from './pages/Profile'
+import { EditPassword } from './pages/EditPassword'
 import { UserLayout } from './layout/UserLayout'
+import { Profile } from './pages/Profile'
 
 export function Router() {
   /*
@@ -24,6 +25,7 @@ export function Router() {
       </Route>
       <Route path="/user/" element={<UserLayout />}>
         <Route path="/user/profile" element={<Profile />} />
+        <Route path="/user/editPassword" element={<EditPassword />} />
       </Route>
     </Routes>
   )

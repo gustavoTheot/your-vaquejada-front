@@ -1,27 +1,31 @@
-import { DataProfile, Field, FieldValue, ProfileContainer } from './styles'
+import {
+  DataProfile,
+  Field,
+  FieldValue,
+  ProfileContainer,
+} from '../Profile/styles'
 import { useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
 import { Button } from '../../components/Button'
 import * as z from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { hash } from 'bcryptjs'
 
 interface Manager {
   id: string
-  name: string
-  email: string
-  phone: string
+  password: string
 }
 
 const updateManagerValidadeSchema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  phone: z.number(),
+  oldPassword: z.string(),
+  newPassword: z.string(),
+  repeatNewPassword: z.string(),
 })
 
 type UpdateManagerFormInputs = z.infer<typeof updateManagerValidadeSchema>
 
-export function Profile() {
+export function EditPassword() {
   const { register, handleSubmit, setValue } = useForm<UpdateManagerFormInputs>(
     {
       resolver: zodResolver(updateManagerValidadeSchema),
@@ -32,13 +36,22 @@ export function Profile() {
   const tokenManager = localStorage.getItem('token')
 
   async function handleUpadeManager(data: UpdateManagerFormInputs) {
+    const { oldPassword, newPassword, repeatNewPassword } = data
+
     try {
+      const passwordHash = await hash(oldPassword, 6)
+
+      if (passwordHash !== profile?.password) {
+        console.log('Response', Error)
+      }
+
+      if (newPassword !== repeatNewPassword) {
+        console.log('Response', Error)
+      }
+
       await api.put(`/manager/${profile?.id}`, {
-        name: data?.name,
-        email: data?.email,
-        phone: data?.phone,
+        password: newPassword,
       })
-      console.log('ok')
     } catch (error) {
       alert(error)
     }
@@ -54,10 +67,6 @@ export function Profile() {
         })
 
         setProfile(response.data.profile)
-
-        setValue('name', response.data.profile.name)
-        setValue('email', response.data.profile.email)
-        setValue('phone', response.data.profile.phone)
       } catch (error) {
         console.log('Erro', error)
       }
@@ -75,34 +84,34 @@ export function Profile() {
           <Field>
             <FieldValue>
               <label>
-                <strong>Nome</strong>
+                <strong>Senha antiga</strong>
               </label>
 
-              <input type="text" {...register('name')} />
+              <input type="password" {...register('oldPassword')} />
             </FieldValue>
           </Field>
 
           <Field>
             <FieldValue>
               <label>
-                <strong>E-mail</strong>
+                <strong>Nova senha</strong>
               </label>
 
-              <input type="email" {...register('email')} />
+              <input type="password" {...register('newPassword')} />
             </FieldValue>
           </Field>
 
           <Field>
             <FieldValue>
               <label>
-                <strong>Telefone ou Celular</strong>
+                <strong>Repita a nova senha</strong>
               </label>
 
-              <input type="number" {...register('phone')} />
+              <input type="password" {...register('repeatNewPassword')} />
             </FieldValue>
           </Field>
 
-          <Button typeButton={'submit'}>Saltar perfil</Button>
+          <Button typeButton={'submit'}>Saltar nova senha</Button>
         </form>
       </DataProfile>
     </ProfileContainer>

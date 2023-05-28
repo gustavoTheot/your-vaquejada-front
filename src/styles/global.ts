@@ -53,5 +53,6 @@ export const GlobalStyles = createGlobalStyle`
     button {
       margin-top: 3.5rem;
     }
+
   }
 `

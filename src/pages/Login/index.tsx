@@ -9,16 +9,16 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ViewInput } from '../Register/styles'
 import { Eye, EyeSlash } from 'phosphor-react'
 
-const loginManageValidadeSchema = z.object({
+const loginManagerValidadeSchema = z.object({
   email: z.string().email(),
   password: z.string(),
 })
 
-type LoginManagerFormInputs = z.infer<typeof loginManageValidadeSchema>
+type LoginManagerFormInputs = z.infer<typeof loginManagerValidadeSchema>
 
 export function Login() {
   const { register, handleSubmit, control } = useForm<LoginManagerFormInputs>({
-    resolver: zodResolver(loginManageValidadeSchema),
+    resolver: zodResolver(loginManagerValidadeSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -40,10 +40,13 @@ export function Login() {
     const { email, password } = data
 
     try {
-      await api.post('/login', {
+      const response = await api.post('/login', {
         email,
         password,
       })
+      const { token } = response.data
+      localStorage.setItem('token', token)
+
       history('/user/profile')
     } catch (error) {
       alert(error)

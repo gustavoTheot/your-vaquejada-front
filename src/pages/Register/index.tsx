@@ -53,8 +53,6 @@ export function RegisterManager() {
     } catch (error) {
       alert(error)
     }
-
-    console.log(data)
     reset()
   }
 

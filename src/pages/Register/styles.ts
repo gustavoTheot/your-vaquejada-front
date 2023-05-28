@@ -12,6 +12,7 @@ export const Main = styled.main`
 
   span {
     margin-top: 2rem;
+    margin-bottom: 3rem;
     font-weight: 700;
 
     a {
