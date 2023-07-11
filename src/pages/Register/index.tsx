@@ -2,11 +2,12 @@ import { api } from '../../lib/axios'
 import * as z from 'zod'
 import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Main, RegisterContainer, ViewInput } from './styles'
+import { Main, ViewInput } from './styles'
 import { Button } from '../../components/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { Eye, EyeSlash } from 'phosphor-react'
+import { Container } from '../../styles/Container'
 
 const newManageValidadeSchema = z.object({
   name: z.string(),
@@ -61,7 +62,7 @@ export function RegisterManager() {
   }
 
   return (
-    <RegisterContainer>
+    <Container>
       <Main>
         <h1>Cadastre-se grátis e crie sua vaquejada</h1>
 
@@ -101,6 +102,6 @@ export function RegisterManager() {
           Já tem uma conta? <Link to={'/login'}>Faça login</Link>
         </span>
       </Main>
-    </RegisterContainer>
+    </Container>
   )
 }

@@ -44,9 +44,9 @@ export function UserHeader() {
     <HeaderContainer>
       {isDropDown ? (
         <NavBarDropDown>
-          <button>
+          <Link to={'/user/access'}>
             <ArrowLeft size={24} />
-          </button>
+          </Link>
 
           <HeaderDropDown>
             <DropdownMenu.Root>
@@ -59,12 +59,16 @@ export function UserHeader() {
               <Portal>
                 <Content sideOffset={5}>
                   <Item>
-                    <Link to={''}>Criar vaquejada</Link>
+                    <Link to={'/user/confirmCreateVaquejada'}>
+                      Criar Vaquejada
+                    </Link>
                   </Item>
 
-                  <Item>Visualizar vaquejadas</Item>
-
-                  <Item>Comprar pacote</Item>
+                  <Item>
+                    <Link to={'/user/listVaquejada'}>
+                      Visualizar vaquejadas
+                    </Link>
+                  </Item>
 
                   <Item>
                     <Link to={'/user/profile'}>Perfil</Link>
@@ -85,19 +89,19 @@ export function UserHeader() {
         </NavBarDropDown>
       ) : (
         <NavBar>
-          <Link to={''}>
+          <Link to={'/user/access'}>
             <ArrowLeft size={24} />
           </Link>
 
           <ul>
             <li>
-              <Link to={''}>Criar vaquejada</Link>
+              <Link to={'/user/confirmCreateVaquejada'}>Criar vaquejada</Link>
             </li>
             <li>
-              <Link to={''}>Visualizar vaquejadas</Link>
+              <Link to={'/user/listVaquejada'}>Visualizar vaquejadas</Link>
             </li>
             <li>
-              <Link to={''}>Alterar senha</Link>
+              <Link to={'/user/editPassword'}>Alterar senha</Link>
             </li>
             <li>
               <Link to={'/user/profile'}>Perfil</Link>

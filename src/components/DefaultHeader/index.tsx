@@ -11,6 +11,7 @@ import {
 } from './styles'
 
 import logo from '../../assets/logo.svg'
+
 import { useEffect, useState } from 'react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { List } from 'phosphor-react'

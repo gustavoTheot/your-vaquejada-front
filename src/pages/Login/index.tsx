@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { api } from '../../lib/axios'
 import { Link, useNavigate } from 'react-router-dom'
-import { LoginContainer, Main } from './styles'
+import { Main } from './styles'
 import { Button } from '../../components/Button'
 import * as z from 'zod'
 import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ViewInput } from '../Register/styles'
 import { Eye, EyeSlash } from 'phosphor-react'
+import { Container } from '../../styles/Container'
 
 const loginManagerValidadeSchema = z.object({
   email: z.string().email(),
@@ -44,17 +45,18 @@ export function Login() {
         email,
         password,
       })
-      const { token } = response.data
+      const { token, managerId } = response.data
       localStorage.setItem('token', token)
+      localStorage.setItem('managerId', managerId)
 
-      history('/user/profile')
+      history('/user/access')
     } catch (error) {
       alert(error)
     }
   }
 
   return (
-    <LoginContainer>
+    <Container>
       <Main>
         <h1>Entre e gerencie sua vaquejada</h1>
 
@@ -80,6 +82,6 @@ export function Login() {
           <Link to={'/register'}> Faça seu cadastro</Link>
         </span>
       </Main>
-    </LoginContainer>
+    </Container>
   )
 }

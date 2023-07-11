@@ -1,9 +1,4 @@
-import {
-  DataProfile,
-  Field,
-  FieldValue,
-  ProfileContainer,
-} from '../Profile/styles'
+import { DataProfile, Field, FieldValue } from '../Profile/styles'
 import { useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
 import { Button } from '../../components/Button'
@@ -11,6 +6,7 @@ import * as z from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { hash } from 'bcryptjs'
+import { Container } from '../../styles/Container'
 
 interface Manager {
   id: string
@@ -78,7 +74,7 @@ export function EditPassword() {
   }, [tokenManager, setValue])
 
   return (
-    <ProfileContainer>
+    <Container>
       <DataProfile>
         <form onSubmit={handleSubmit(handleUpadeManager)}>
           <Field>
@@ -114,6 +110,6 @@ export function EditPassword() {
           <Button typeButton={'submit'}>Saltar nova senha</Button>
         </form>
       </DataProfile>
-    </ProfileContainer>
+    </Container>
   )
 }
